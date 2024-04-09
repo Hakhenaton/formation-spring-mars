@@ -21,5 +21,13 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="2" author="renaud">
+        <addColumn tableName="colis">
+            <column name="tracking_code" type="char(16)">
+                <constraints unique="true" nullable="false" />
+            </column>
+            <column name="details" type="varchar(1024)"></column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>
