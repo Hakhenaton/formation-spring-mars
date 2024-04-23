@@ -8,6 +8,8 @@ public class CreateColisParams {
 
     private String details;
 
+    private String deliveryPersonUsername;
+
     public void setEmail(String email){
         this.email = email;
     }
@@ -31,4 +33,14 @@ public class CreateColisParams {
     public void setDetails(String details) {
         this.details = details;
     }
+
+    public String getDeliveryPersonUsername() {
+        return deliveryPersonUsername;
+    }
+
+    public void setDeliveryPersonUsername(String deliveryPersonUsername) {
+        this.deliveryPersonUsername = deliveryPersonUsername;
+    }
+
+    
 }

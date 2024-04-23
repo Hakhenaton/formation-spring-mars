@@ -1,3 +1,11 @@
+colibri:
+  users:
+    - username: renaud
+      password: $2y$10$wDIgtOTvV4k7wvF7rhImvuGSvSenwWg4RU8D/2K2r3a.S2CDBFx/e
+      role: ADMINISTRATOR
+    - username: bryce
+      password: $2y$10$1IYt/BloYssnnu.yER4tee7.rDbCmJbeDd1gdI99mF1F5qpkPGRca
+      role: DELIVERY_PERSON
 spring:
   datasource:
     url: jdbc:h2:file:./colibri.database

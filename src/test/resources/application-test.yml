@@ -1,0 +1,7 @@
+spring:
+    sql:
+        init:
+            data-locations: 
+                - classpath:colis.sql
+    datasource:
+        url: 'jdbc:h2:mem:'

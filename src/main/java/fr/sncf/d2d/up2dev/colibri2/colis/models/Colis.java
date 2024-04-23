@@ -9,8 +9,10 @@ public class Colis {
     private final String details; 
     private final String email; 
     private final String trackingCode;
+    private final ColisStatus status;
+    private final String deliveryPersonUsername;
     
-    private Colis(UUID id, String address, String details, String email, String trackingCode){
+    private Colis(UUID id, String address, String details, String email, String trackingCode, ColisStatus status, String deliveryPersonUsername){
         assert id != null;
         assert address != null;
         assert email != null;
@@ -21,6 +23,8 @@ public class Colis {
         this.details = details;
         this.email = email;
         this.trackingCode = trackingCode;
+        this.status = status;
+        this.deliveryPersonUsername = deliveryPersonUsername;
     }
 
     public UUID getId() {
@@ -43,6 +47,10 @@ public class Colis {
         return trackingCode;
     }
 
+    public ColisStatus getStatus(){
+        return status;
+    }
+
     public static ColisBuilder builder(){
         return new ColisBuilder();
     }
@@ -54,6 +62,8 @@ public class Colis {
         private String details; 
         private String email; 
         private String trackingCode;
+        private ColisStatus status;
+        private String deliveryPersonUsername;
 
         private ColisBuilder(){}
 
@@ -72,6 +82,11 @@ public class Colis {
             return this;
         }
 
+        public ColisBuilder status(ColisStatus status){
+            this.status = status;
+            return this;
+        }
+
         public ColisBuilder email(String email){
             this.email = email;
             return this;
@@ -82,13 +97,20 @@ public class Colis {
             return this;
         }
 
+        public ColisBuilder deliveryPersonUsername(String username){
+            this.deliveryPersonUsername = username;
+            return this;
+        }
+
         public Colis build(){
             return new Colis(
                 this.id,
                 this.address,
                 this.details,
                 this.email,
-                this.trackingCode
+                this.trackingCode,
+                this.status,
+                this.deliveryPersonUsername
             );
         }
     }

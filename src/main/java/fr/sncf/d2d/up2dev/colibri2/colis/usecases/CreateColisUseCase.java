@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import fr.sncf.d2d.up2dev.colibri2.colis.models.Colis;
+import fr.sncf.d2d.up2dev.colibri2.colis.models.ColisStatus;
 import fr.sncf.d2d.up2dev.colibri2.colis.models.CreateColisParams;
 import fr.sncf.d2d.up2dev.colibri2.colis.persistence.ColisRepository;
 
@@ -35,6 +36,8 @@ public class CreateColisUseCase {
             .details(params.getDetails())
             .trackingCode(trackingCode)
             .email(params.getEmail())
+            .status(ColisStatus.PENDING)
+            .deliveryPersonUsername(params.getDeliveryPersonUsername())
             .build();
 
         this.colisRepository.insert(colis);

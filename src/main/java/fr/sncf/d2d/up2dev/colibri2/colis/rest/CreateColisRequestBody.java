@@ -18,6 +18,8 @@ public class CreateColisRequestBody {
 
     private String details;
 
+    private String deliveryPersonUsername;
+
     public void setEmail(String email){
         this.email = email;
     }
@@ -42,8 +44,22 @@ public class CreateColisRequestBody {
         this.details = details;
     }
 
+    
+    public String getDeliveryPersonUsername() {
+        return deliveryPersonUsername;
+    }
+    
+    public void setDeliveryPersonUsername(String deliveryPersonUsername) {
+        this.deliveryPersonUsername = deliveryPersonUsername;
+    }
+
     @AssertTrue(message = "details must not be blank if provided")
     private boolean validateDetails(){
         return this.details == null || StringUtils.hasText(this.details);
+    }
+
+    @AssertTrue(message = "deliveryPersonUsername must not be blank if provided")
+    private boolean validateDeliveryPersonUsername(){
+        return this.deliveryPersonUsername == null || StringUtils.hasText(this.deliveryPersonUsername);
     }
 }

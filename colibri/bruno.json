@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "colibri",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
