@@ -17,6 +17,7 @@ import fr.sncf.d2d.up2dev.colibri2.colis.models.Page;
 import fr.sncf.d2d.up2dev.colibri2.colis.models.PaginateColisParams;
 import fr.sncf.d2d.up2dev.colibri2.colis.usecases.CreateColisUseCase;
 import fr.sncf.d2d.up2dev.colibri2.colis.usecases.PaginateColisUseCase;
+import fr.sncf.d2d.up2dev.colibri2.users.exceptions.UserNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -43,7 +44,7 @@ public class ColisRestController {
  
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Colis createColis(@RequestBody @Valid CreateColisRequestBody body) throws NoSuchAlgorithmException {
+    public Colis createColis(@RequestBody @Valid CreateColisRequestBody body) throws UserNotFoundException{
         
         final var params = new CreateColisParams();
         params.setAddress(body.getAddress());

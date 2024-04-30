@@ -21,6 +21,4 @@ public class PaginateColisParams {
     public void setPage(long total) {
         this.page = total;
     }
-
-    
 }

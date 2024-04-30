@@ -1,5 +1,6 @@
 package fr.sncf.d2d.up2dev.colibri2.colis.models;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class Colis {
@@ -35,8 +36,8 @@ public class Colis {
         return address;
     }
 
-    public String getDetails() {
-        return details;
+    public Optional<String> getDetails() {
+        return Optional.ofNullable(details);
     }
 
     public String getEmail() {
@@ -49,6 +50,10 @@ public class Colis {
 
     public ColisStatus getStatus(){
         return status;
+    }
+
+    public Optional<String> getDeliveryPersonUsername() {
+        return Optional.ofNullable(deliveryPersonUsername);
     }
 
     public static ColisBuilder builder(){

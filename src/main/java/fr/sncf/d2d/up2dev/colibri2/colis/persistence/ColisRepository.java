@@ -1,6 +1,7 @@
 package fr.sncf.d2d.up2dev.colibri2.colis.persistence;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -31,9 +32,16 @@ public class ColisRepository {
     }
 
     public void insert(Colis colis){
-        final var sql = "INSERT INTO colis (id, address, email, details, tracking_code) VALUES (:id, :address, :email, :details, :trackingCode)";
+        final var sql = "INSERT INTO colis (id, address, email, details, tracking_code, delivery_person_username) VALUES (:id, :address, :email, :details, :trackingCode, :deliveryPersonUsername)";
         final var params = new BeanPropertySqlParameterSource(colis);
-        final var result = this.jdbcTemplate.update(sql, params);
+        final var result = this.jdbcTemplate.update(sql, new HashMap<>(){{
+            put("id", colis.getId());
+            put("address", colis.getAddress());
+            put("email", colis.getEmail());
+            put("details", colis.getDetails().orElse(null));
+            put("trackingCode", colis.getTrackingCode());
+            put("deliveryPersonUsername", colis.getDeliveryPersonUsername().orElse(null));
+        }});
         assert result == 1;
     }
 

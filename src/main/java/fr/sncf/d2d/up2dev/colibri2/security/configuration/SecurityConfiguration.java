@@ -1,5 +1,8 @@
 package fr.sncf.d2d.up2dev.colibri2.security.configuration;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -26,6 +29,7 @@ public class SecurityConfiguration {
             .formLogin(formLogin -> formLogin.disable())
             .csrf(csrf -> csrf.disable())
             .httpBasic(Customizer.withDefaults())
+            .headers(headers -> headers.disable())
             .userDetailsService(username -> usersRepository.findByUsername(username)
                 .map(ApplicationUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("username %s was not found", username)))
@@ -37,14 +41,19 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(requests -> requests
                 .requestMatchers(HttpMethod.POST, "/colis").hasRole(Role.ADMINISTRATOR.name())
                 .requestMatchers(HttpMethod.GET, "/colis").fullyAuthenticated()
-                .anyRequest().denyAll()
+                .anyRequest().permitAll()
             );
         
         return http.build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    SecureRandom secureRandom() throws NoSuchAlgorithmException {
+        return SecureRandom.getInstanceStrong();
     }
 }

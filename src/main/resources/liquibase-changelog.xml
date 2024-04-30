@@ -29,5 +29,11 @@
             <column name="details" type="varchar(1024)"></column>
         </addColumn>
     </changeSet>
+    <changeSet id="3" author="renaud">
+        <addColumn tableName="colis">
+            <column name="delivery_person_username" type="varchar(1024)">
+            </column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>
