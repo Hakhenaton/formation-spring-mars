@@ -6,6 +6,7 @@ import java.util.HexFormat;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.sncf.d2d.up2dev.colibri2.colis.models.Colis;
 import fr.sncf.d2d.up2dev.colibri2.colis.models.ColisStatus;

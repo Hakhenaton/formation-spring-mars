@@ -3,8 +3,10 @@ package fr.sncf.d2d.up2dev.colibri2.colis.persistence;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -31,9 +33,21 @@ public class ColisRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public Optional<Colis> findById(UUID id){
+        try {
+            return Optional.of(this.jdbcTemplate
+                .queryForObject(
+                    "SELECT * FROM colis WHERE id = :id", 
+                    Collections.singletonMap("id", id.toString()),
+                    ROW_MAPPER 
+                ));
+        } catch (EmptyResultDataAccessException empty){
+            return Optional.empty();
+        }
+    }
+
     public void insert(Colis colis){
         final var sql = "INSERT INTO colis (id, address, email, details, tracking_code, delivery_person_username) VALUES (:id, :address, :email, :details, :trackingCode, :deliveryPersonUsername)";
-        final var params = new BeanPropertySqlParameterSource(colis);
         final var result = this.jdbcTemplate.update(sql, new HashMap<>(){{
             put("id", colis.getId());
             put("address", colis.getAddress());
@@ -43,6 +57,30 @@ public class ColisRepository {
             put("deliveryPersonUsername", colis.getDeliveryPersonUsername().orElse(null));
         }});
         assert result == 1;
+    }
+
+    public void update(Colis colis){
+        final var sql = """
+UPDATE colis SET \
+address = :address, \
+details = :details, \
+delivery_person_username = :deliveryPersonUsername, \
+email = :email \
+WHERE id = :id
+    """;
+
+        final var res = this.jdbcTemplate.update(
+            sql,
+            new HashMap<>(){{
+                put("id", colis.getId());
+                put("address", colis.getAddress());
+                put("details", colis.getDetails().orElse(null));
+                put("deliveryPersonUsername", colis.getDeliveryPersonUsername().orElse(null));
+                put("email", colis.getEmail());
+            }} 
+        );
+
+        assert res == 1;
     }
 
     public Page<Colis> paginate(PaginateColisParams params){

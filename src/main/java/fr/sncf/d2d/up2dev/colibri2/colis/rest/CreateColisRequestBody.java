@@ -54,12 +54,12 @@ public class CreateColisRequestBody {
     }
 
     @AssertTrue(message = "details must not be blank if provided")
-    private boolean validateDetails(){
+    private boolean isDetailsValid(){
         return this.details == null || StringUtils.hasText(this.details);
     }
 
     @AssertTrue(message = "deliveryPersonUsername must not be blank if provided")
-    private boolean validateDeliveryPersonUsername(){
+    private boolean isDeliveryPersonUsernameValid(){
         return this.deliveryPersonUsername == null || StringUtils.hasText(this.deliveryPersonUsername);
     }
 }

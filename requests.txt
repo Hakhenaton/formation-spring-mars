@@ -1,0 +1,1 @@
+curl -X PATCH -H 'Content-Type: application/json' --data '{ "email": "shahwan@sncf.fr" }' http://localhost:8080/colis/6a979532-a9d8-4eea-b7d2-5b6d44d2a979

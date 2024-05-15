@@ -6,12 +6,12 @@ import java.util.UUID;
 public class Colis {
 
     private final UUID id; 
-    private final String address; 
-    private final String details; 
-    private final String email; 
+    private String address; 
+    private String details; 
+    private String email; 
     private final String trackingCode;
-    private final ColisStatus status;
-    private final String deliveryPersonUsername;
+    private ColisStatus status;
+    private String deliveryPersonUsername;
     
     private Colis(UUID id, String address, String details, String email, String trackingCode, ColisStatus status, String deliveryPersonUsername){
         assert id != null;
@@ -54,6 +54,26 @@ public class Colis {
 
     public Optional<String> getDeliveryPersonUsername() {
         return Optional.ofNullable(deliveryPersonUsername);
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setStatus(ColisStatus status) {
+        this.status = status;
+    }
+
+    public void setDeliveryPersonUsername(String deliveryPersonUsername) {
+        this.deliveryPersonUsername = deliveryPersonUsername;
     }
 
     public static ColisBuilder builder(){
