@@ -2,12 +2,7 @@ package fr.sncf.d2d.up2dev.colibri2.colis.models;
 
 import java.util.UUID;
 
-import org.springframework.util.StringUtils;
-
 import fr.sncf.d2d.up2dev.colibri2.common.models.SetField;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 
 public class UpdateColisParams {
 
@@ -20,6 +15,8 @@ public class UpdateColisParams {
     private SetField<String> deliveryPersonUsername;
 
     private SetField<String> email;
+
+    private SetField<ColisStatus> status;
 
     public SetField<String> getAddress() {
         return address;
@@ -59,5 +56,13 @@ public class UpdateColisParams {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public SetField<ColisStatus> getStatus() {
+        return status;
+    }
+
+    public void setStatus(SetField<ColisStatus> status) {
+        this.status = status;
     }
 }

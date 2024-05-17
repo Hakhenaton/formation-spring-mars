@@ -38,9 +38,14 @@ public class SetField<T> {
             : defaultValue;
     }
 
-    public void ifProvided(Consumer<T> consumer){
+    public <E extends Exception> void ifProvided(ThrowingConsumer<T, E> consumer) throws E {
         if (!this.isProvided)
             return;
         consumer.accept(this.value);
+    }
+
+    @FunctionalInterface
+    public static interface ThrowingConsumer<T, E extends Exception> {
+        void accept(T value) throws E;
     }
 }

@@ -35,5 +35,12 @@
             </column>
         </addColumn>
     </changeSet>
+    <changeSet id="4" author="renaud">
+        <addColumn tableName="colis">
+            <column name="status" type="varchar(100)" defaultValue="PENDING">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>

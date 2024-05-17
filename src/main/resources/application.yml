@@ -6,6 +6,9 @@ colibri:
     - username: bryce
       password: $2y$10$1IYt/BloYssnnu.yER4tee7.rDbCmJbeDd1gdI99mF1F5qpkPGRca
       role: DELIVERY_PERSON
+    - username: matthieu
+      password: $2y$10$1IYt/BloYssnnu.yER4tee7.rDbCmJbeDd1gdI99mF1F5qpkPGRca
+      role: DELIVERY_PERSON
 spring:
   mail:
     host: localhost

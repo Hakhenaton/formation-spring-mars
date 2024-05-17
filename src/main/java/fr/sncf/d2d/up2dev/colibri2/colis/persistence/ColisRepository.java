@@ -8,11 +8,13 @@ import java.util.UUID;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import fr.sncf.d2d.up2dev.colibri2.colis.models.Colis;
+import fr.sncf.d2d.up2dev.colibri2.colis.models.ColisStatus;
 import fr.sncf.d2d.up2dev.colibri2.colis.models.Page;
 import fr.sncf.d2d.up2dev.colibri2.colis.models.PaginateColisParams;
 
@@ -25,6 +27,7 @@ public class ColisRepository {
         .address(resultSet.getString("address"))
         .trackingCode(resultSet.getString("tracking_code"))
         .details(resultSet.getString("details"))
+        .status(ColisStatus.valueOf(resultSet.getString("status")))
         .build();
  
     private final NamedParameterJdbcTemplate jdbcTemplate;
@@ -46,6 +49,8 @@ public class ColisRepository {
         }
     }
 
+    // SPEL
+    @PreAuthorize("@colisGuard.canCreate(#colis, principal)")
     public void insert(Colis colis){
         final var sql = "INSERT INTO colis (id, address, email, details, tracking_code, delivery_person_username) VALUES (:id, :address, :email, :details, :trackingCode, :deliveryPersonUsername)";
         final var result = this.jdbcTemplate.update(sql, new HashMap<>(){{
@@ -65,7 +70,8 @@ UPDATE colis SET \
 address = :address, \
 details = :details, \
 delivery_person_username = :deliveryPersonUsername, \
-email = :email \
+email = :email, \
+status = :status \
 WHERE id = :id
     """;
 
@@ -77,6 +83,7 @@ WHERE id = :id
                 put("details", colis.getDetails().orElse(null));
                 put("deliveryPersonUsername", colis.getDeliveryPersonUsername().orElse(null));
                 put("email", colis.getEmail());
+                put("status", colis.getStatus().name());
             }} 
         );
 

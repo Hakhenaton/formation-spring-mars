@@ -1,6 +1,5 @@
 package fr.sncf.d2d.up2dev.colibri2.colis.rest;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
@@ -10,11 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.sncf.d2d.up2dev.colibri2.colis.exceptions.ColisNotFoundException;
+import fr.sncf.d2d.up2dev.colibri2.colis.exceptions.ColisStatusException;
 import fr.sncf.d2d.up2dev.colibri2.colis.models.Colis;
 import fr.sncf.d2d.up2dev.colibri2.colis.models.CreateColisParams;
 import fr.sncf.d2d.up2dev.colibri2.colis.models.Page;
@@ -67,13 +66,14 @@ public class ColisRestController {
     public Colis updateColis(
         @PathVariable("colisId") UUID id,
         @RequestBody @Valid UpdateColisRequestBody body
-    ) throws ColisNotFoundException, UserNotFoundException {
+    ) throws ColisNotFoundException, UserNotFoundException, ColisStatusException {
 
         final var params = new UpdateColisParams();
         params.setAddress(body.getAddress());
         params.setEmail(body.getEmail());
         params.setDeliveryPersonUsername(body.getDeliveryPersonUsername());
         params.setDetails(body.getDetails());
+        params.setStatus(body.getStatus());
         params.setId(id);
 
         return this.updateColisUseCase.update(params);

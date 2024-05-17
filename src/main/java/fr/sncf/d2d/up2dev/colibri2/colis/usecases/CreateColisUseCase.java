@@ -1,12 +1,10 @@
 package fr.sncf.d2d.up2dev.colibri2.colis.usecases;
 
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.HexFormat;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import fr.sncf.d2d.up2dev.colibri2.colis.models.Colis;
 import fr.sncf.d2d.up2dev.colibri2.colis.models.ColisStatus;
@@ -14,7 +12,6 @@ import fr.sncf.d2d.up2dev.colibri2.colis.models.CreateColisParams;
 import fr.sncf.d2d.up2dev.colibri2.colis.persistence.ColisRepository;
 import fr.sncf.d2d.up2dev.colibri2.colis.services.ColisNotificationService;
 import fr.sncf.d2d.up2dev.colibri2.users.exceptions.UserNotFoundException;
-import fr.sncf.d2d.up2dev.colibri2.users.models.Role;
 import fr.sncf.d2d.up2dev.colibri2.users.persistence.UsersRepository;
 
 @Service

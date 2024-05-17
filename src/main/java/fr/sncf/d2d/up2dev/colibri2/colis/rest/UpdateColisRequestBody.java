@@ -2,10 +2,12 @@ package fr.sncf.d2d.up2dev.colibri2.colis.rest;
 
 import org.springframework.util.StringUtils;
 
+import fr.sncf.d2d.up2dev.colibri2.colis.models.ColisStatus;
 import fr.sncf.d2d.up2dev.colibri2.common.models.SetField;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class UpdateColisRequestBody {
     
@@ -16,6 +18,8 @@ public class UpdateColisRequestBody {
     private SetField<String> deliveryPersonUsername = SetField.noop();
 
     private SetField<@Email String> email = SetField.noop();
+
+    private SetField<@NotNull ColisStatus> status = SetField.noop();
 
     public SetField<String> getAddress() {
         return address;
@@ -47,6 +51,14 @@ public class UpdateColisRequestBody {
 
     public void setEmail(String email){
         this.email = SetField.with(email);
+    }
+
+    public SetField<ColisStatus> getStatus() {
+        return status;
+    }
+
+    public void setStatus(ColisStatus status){
+        this.status = SetField.with(status);
     }
 
     @AssertTrue
